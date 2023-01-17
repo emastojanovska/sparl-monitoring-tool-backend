@@ -1,0 +1,49 @@
+{
+  "exampleResources" : {
+    "type" : "literal",
+    "datatype" : "http://www.w3.org/2001/XMLSchema#string",
+    "value" : [ "https://w3id.org/scholarlydata/authorlist/iswc-2019-resource-102", "https://w3id.org/scholarlydata/authorlist/iswc-2019-resource-123", "https://w3id.org/scholarlydata/authorlist/iswc-2019-resource-143" ]
+  },
+  "triples" : {
+    "type" : "literal",
+    "datatype" : "http://www.w3.org/2001/XMLSchema#integer",
+    "value" : "1282460",
+    "link" : "http://vocab.deri.ie/void#triples",
+    "name" : "void:triples"
+  },
+  "properties" : {
+    "type" : "literal",
+    "datatype" : "http://www.w3.org/2001/XMLSchema#integer",
+    "value" : "209",
+    "link" : "http://vocab.deri.ie/void#properties",
+    "name" : "void:properties"
+  },
+  "classes" : {
+    "type" : "literal",
+    "datatype" : "http://www.w3.org/2001/XMLSchema#integer",
+    "value" : "94",
+    "link" : "http://vocab.deri.ie/void#classes",
+    "name" : "void:classes"
+  },
+  "objects" : {
+    "type" : "literal",
+    "datatype" : "http://www.w3.org/2001/XMLSchema#integer",
+    "value" : "173854",
+    "link" : "http://vocab.deri.ie/void#distinctObjects",
+    "name" : "void:distinctObjects"
+  },
+  "entities" : {
+    "type" : "literal",
+    "datatype" : "http://www.w3.org/2001/XMLSchema#integer",
+    "value" : "82040",
+    "link" : "http://vocab.deri.ie/void#entities",
+    "name" : "void:entities"
+  },
+  "subjects" : {
+    "type" : "literal",
+    "datatype" : "http://www.w3.org/2001/XMLSchema#integer",
+    "value" : "89539",
+    "link" : "http://vocab.deri.ie/void#distinctSubjects",
+    "name" : "void:distinctSubjects"
+  }
+}

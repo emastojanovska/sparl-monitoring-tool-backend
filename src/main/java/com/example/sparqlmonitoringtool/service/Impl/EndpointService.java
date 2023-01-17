@@ -4,23 +4,26 @@ import com.example.sparqlmonitoringtool.exceptions.EndpointAlreadyExistsExceptio
 import com.example.sparqlmonitoringtool.exceptions.EndpointNotFoundException;
 import com.example.sparqlmonitoringtool.model.db.Endpoint;
 import com.example.sparqlmonitoringtool.model.db.Query;
+import com.example.sparqlmonitoringtool.model.db.VoidDatasetStatistics;
 import com.example.sparqlmonitoringtool.model.dto.EndpointDTO;
 import com.example.sparqlmonitoringtool.model.dto.EndpointResponseDTO;
+import com.example.sparqlmonitoringtool.model.events.EndpointCreatedEvent;
 import com.example.sparqlmonitoringtool.repository.EndpointRepository;
 import com.example.sparqlmonitoringtool.repository.QueryRepository;
+import com.example.sparqlmonitoringtool.repository.ResultValueRepository;
+import com.example.sparqlmonitoringtool.repository.VoidStatisticsRepository;
 import com.example.sparqlmonitoringtool.service.IEndpointService;
 import com.example.sparqlmonitoringtool.service.IInMemoryService;
 import org.apache.commons.lang3.time.StopWatch;
-import org.apache.jena.ext.com.google.common.net.InternetDomainName;
 import org.apache.jena.query.QueryExecution;
 import org.apache.jena.query.QueryExecutionFactory;
 import org.apache.jena.query.QueryFactory;
+import org.json.JSONException;
+import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.stereotype.Service;
 
 import java.io.IOException;
 import java.net.HttpURLConnection;
-import java.net.URI;
-import java.net.URISyntaxException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -34,23 +37,28 @@ public class EndpointService implements IEndpointService {
     private final EndpointRepository endpointRepository;
     private final IInMemoryService inMemoryService;
     private final QueryRepository queryRepository;
+    private final VoidStatisticsRepository voidStatisticsRepository;
+    private final QueryService queryService;
+    private final ResultValueRepository resultValueRepository;
+    private final ApplicationEventPublisher applicationEventPublisher;
 
-    public EndpointService(EndpointRepository endpointRepository, IInMemoryService inMemoryService, QueryRepository queryRepository) {
+    public EndpointService(EndpointRepository endpointRepository, IInMemoryService inMemoryService, QueryRepository queryRepository, VoidStatisticsRepository voidStatisticsRepository, QueryService queryService, ResultValueRepository resultValueRepository, ApplicationEventPublisher applicationEventPublisher) {
         this.endpointRepository = endpointRepository;
         this.inMemoryService = inMemoryService;
         this.queryRepository = queryRepository;
+        this.voidStatisticsRepository = voidStatisticsRepository;
+        this.queryService = queryService;
+        this.resultValueRepository = resultValueRepository;
+        this.applicationEventPublisher = applicationEventPublisher;
     }
+
 
     public boolean checkVoID(String endpointURL)throws IOException {
         String[] domainName = endpointURL.split("/");
         String checkVoid = "http://" + domainName[2] + "/.well-known/void";
-        System.out.println("Void check ==> " + checkVoid);
         URL url = new URL(checkVoid.toLowerCase());
-        System.out.println("Void url ==> " + checkVoid);
-
         HttpURLConnection huc = (HttpURLConnection) url.openConnection();
         int responseCode = huc.getResponseCode();
-        System.out.println("Response code ==> " + responseCode);
 
         if(responseCode == 200)
             return true;
@@ -58,9 +66,9 @@ public class EndpointService implements IEndpointService {
 
     }
     @Override
-    public Endpoint createSparqlEndpoint(EndpointDTO endpointDTO) throws IOException, URISyntaxException {
+    public Endpoint createSparqlEndpoint(EndpointDTO endpointDTO) throws IOException, JSONException {
         Endpoint endpoint = new Endpoint(endpointDTO.getURL());
-        if(endpointRepository.findByURL(endpointDTO.getURL()).size() > 0)
+        if(endpointRepository.findAllByURL(endpointDTO.getURL()).size() > 0)
         {
             throw new EndpointAlreadyExistsException();
         }else{
@@ -69,6 +77,7 @@ public class EndpointService implements IEndpointService {
             endpoint.setServerName(dto.getServerName());
             endpoint.setNumAvailable(0);
             endpoint.setNumUnavailable(0);
+            endpoint.setVoidFileGenerated(false);
             if(endpointDTO.getName() != null || !endpointDTO.getName().isEmpty()){
                 endpoint.setName(endpointDTO.getName());
             }else{
@@ -77,6 +86,12 @@ public class EndpointService implements IEndpointService {
             endpoint.setVoID(checkVoID(endpoint.getURL()));
             endpointRepository.save(endpoint);
             addDefaultQueries(endpoint);
+            VoidDatasetStatistics voidDatasetStatistics = new VoidDatasetStatistics();
+            voidDatasetStatistics.setEndpoint(endpoint);
+            voidStatisticsRepository.save(voidDatasetStatistics);
+            if(!endpoint.isVoID()){
+                this.applicationEventPublisher.publishEvent(new EndpointCreatedEvent(endpoint));
+            }
             return endpoint;
         }
     }
@@ -105,6 +120,11 @@ public class EndpointService implements IEndpointService {
         if(endpoint != null)
             endpointRepository.deleteById(id);
         return endpoint;
+    }
+
+    @Override
+    public Endpoint getEndpointById(Long id) {
+        return endpointRepository.findById(id).orElseThrow(EndpointNotFoundException::new);
     }
 
     @Override
@@ -204,17 +224,35 @@ public class EndpointService implements IEndpointService {
         QueryExecutionFactory.sparqlService(endpointURL, queryToSelect);
     }
 
+    public void createVoidStatistics(Endpoint endpoint) throws JSONException, IOException {
+        queryService.getVoidStatistics(endpoint.getURL());
+    }
+
+    public void generateCoherence(Endpoint endpoint) {
+        queryService.calculateCoherenceValue(endpoint.getURL());
+    }
+
+    public void generateRelationshipSpeciality(Endpoint endpoint){
+        queryService.calculateRelationshipSpeciality(endpoint.getURL());
+    }
+
+    public void updateVoidStatistics() throws JSONException, IOException {
+        for(Endpoint endpoint: endpointRepository.findAllWithoutVoid()){
+            if(!endpoint.isVoID())
+            {
+                queryService.getVoidStatistics(endpoint.getURL());
+            }
+        }
+    }
+
     public void updateResponseTime(){
         for(Endpoint endpoint: endpointRepository.findAll()){
             for(Query query: queryRepository.findAllByEndpoint(endpoint)){
                 Long responseTime = pingURL(endpoint.getURL(), query.getName(), 10);
-                System.out.println("Response time --> " + responseTime);
                 query.setResponseTime(query.getResponseTime() + responseTime);
                 query.setNumExecuted(query.getNumExecuted() + 1);
                 queryRepository.save(query);
             }
         }
     }
-
-
 }

@@ -5,6 +5,7 @@ import com.example.sparqlmonitoringtool.model.dto.EndpointQueriesDTO;
 import com.example.sparqlmonitoringtool.model.dto.QueryDTO;
 import com.example.sparqlmonitoringtool.model.dto.ResponseTimeAverage;
 import com.example.sparqlmonitoringtool.service.IQueryService;
+import lombok.SneakyThrows;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.HashMap;
@@ -20,6 +21,7 @@ public class QueryRestController {
         this.queryService = queryService;
     }
 
+    @SneakyThrows
     @PostMapping("/getQueryData")
     public String getQueryData(@RequestBody QueryDTO queryDTO){
         return queryService.getQueryData(queryDTO.getEndpointURL(), queryDTO.getQuery());

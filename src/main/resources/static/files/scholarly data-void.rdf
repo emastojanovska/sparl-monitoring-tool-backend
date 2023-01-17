@@ -1,0 +1,38 @@
+<!--VoID Description--> 
+
+<?xml version="1.0"?>
+
+<rdf:RDF
+xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+xmlns:void="http://vocab.deri.ie/void#">
+
+<rdf:Description rdf:about="http://www.scholarlydata.org/sparql">
+	<void:triples>1282460</void:triples>
+	<void:properties>209</void:properties>
+	<void:classes>94</void:classes>
+	<void:distinctObjects>173854</void:distinctObjects>
+	<void:entities>82040</void:entities>
+	<void:distinctSubjects>89539</void:distinctSubjects>
+<void:exampleResource>https://w3id.org/scholarlydata/authorlist/iswc-2019-resource-102</void:exampleResource>
+ <void:exampleResource>https://w3id.org/scholarlydata/authorlist/iswc-2019-resource-123</void:exampleResource>
+ <void:exampleResource>https://w3id.org/scholarlydata/authorlist/iswc-2019-resource-143</void:exampleResource>
+</rdf:Description>
+
+<!--SPARQL Service Description-->
+
+<sd:Service>
+    <sd:endpoint rdf:resource="http://www.scholarlydata.org/sparql"/>
+    <sd:supportedLanguage rdf:resource="http://www.w3.org/ns/sparql-service-description#SPARQL11Query"/>
+    <sd:resultFormat rdf:resource="http://www.w3.org/ns/formats/RDF_XML"/>
+    <sd:resultFormat rdf:resource="http://www.w3.org/ns/formats/Turtle"/>
+	<sd:defaultDataset>
+      	    <sd:Dataset>
+       	        <sd:defaultGraph>
+          	    <sd:Graph>
+            	        <void:triples rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">1282460</void:triples>
+                    </sd:Graph>
+                </sd:defaultGraph>
+	    </sd:Dataset>
+	</sd:defaultDataset>
+</sd:Service>
+</rdf:RDF>

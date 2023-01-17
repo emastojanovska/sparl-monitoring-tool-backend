@@ -1,0 +1,38 @@
+<!--VoID Description--> 
+
+<?xml version="1.0"?>
+
+<rdf:RDF
+xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+xmlns:void="http://vocab.deri.ie/void#">
+
+<rdf:Description rdf:about="https://dbpedia.org/sparql">
+	<void:triples>1141462841</void:triples>
+	<void:properties>54685</void:properties>
+	<void:classes>483639</void:classes>
+	<void:distinctObjects>270960599</void:distinctObjects>
+	<void:entities>41635675</void:entities>
+	<void:distinctSubjects>55220524</void:distinctSubjects>
+<void:exampleResource>http://dbpedia.org/resource/OpenLink_Software</void:exampleResource>
+ <void:exampleResource>http://dbpedia.org/resource/1932_Winter_Olympics_medal_table</void:exampleResource>
+ <void:exampleResource>http://dbpedia.org/resource/1932_Wisconsin_Badgers_football_team</void:exampleResource>
+</rdf:Description>
+
+<!--SPARQL Service Description-->
+
+<sd:Service>
+    <sd:endpoint rdf:resource="https://dbpedia.org/sparql"/>
+    <sd:supportedLanguage rdf:resource="http://www.w3.org/ns/sparql-service-description#SPARQL11Query"/>
+    <sd:resultFormat rdf:resource="http://www.w3.org/ns/formats/RDF_XML"/>
+    <sd:resultFormat rdf:resource="http://www.w3.org/ns/formats/Turtle"/>
+	<sd:defaultDataset>
+      	    <sd:Dataset>
+       	        <sd:defaultGraph>
+          	    <sd:Graph>
+            	        <void:triples rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">1141462841</void:triples>
+                    </sd:Graph>
+                </sd:defaultGraph>
+	    </sd:Dataset>
+	</sd:defaultDataset>
+</sd:Service>
+</rdf:RDF>

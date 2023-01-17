@@ -10,4 +10,11 @@ public class InMemoryRepository {
     public HashMap<String, String> findAllQueries(){
         return DataHolder.queries;
     }
+    public HashMap<String, String> findAllVoidQueries(){
+        return DataHolder.voidQueries;
+    }
+    public String findVoidQueryByKey(String key){
+        return DataHolder.voidQueries.get(key);
+    }
+
 }

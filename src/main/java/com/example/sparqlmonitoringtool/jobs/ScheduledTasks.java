@@ -1,8 +1,12 @@
 package com.example.sparqlmonitoringtool.jobs;
 
 import com.example.sparqlmonitoringtool.service.IEndpointService;
+import com.example.sparqlmonitoringtool.service.IQueryService;
+import org.json.JSONException;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
+
+import java.io.IOException;
 
 @Component
 public class ScheduledTasks {
@@ -27,4 +31,14 @@ public class ScheduledTasks {
         this.iEndpointService.updateResponseTime();
         System.out.println("Ending updateResponseTime()");
     }
+
+    //Everyday at 6am
+   /* @Scheduled(cron="0 0 6 * * *")
+    public void getVoidStatistics() throws JSONException, IOException {
+        System.out.println("Calling getVoidStatistics()");
+        this.iEndpointService.updateVoidStatistics();
+        System.out.println("Ending getVoidStatistics()");
+    }*/
+
+
 }

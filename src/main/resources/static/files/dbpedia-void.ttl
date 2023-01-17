@@ -1,0 +1,45 @@
+@prefix sd: <http://www.w3.org/ns/sparql-service-description#> .
+@prefix void: <http://rdfs.org/ns/void#> .
+
+// SPARQL Service Description
+
+<https://dbpedia.org/sparql> a sd:Service ;
+    sd:endpoint <https://dbpedia.org/sparql> ;
+    sd:defaultDataset [
+        a sd:Dataset ;
+        sd:defaultGraph [
+            a sd:Graph ;
+            void:triples1141462841
+        ]
+    ] .
+
+//VoID Description 
+
+@prefix void: <http://vocab.deri.ie/void#> .
+
+<https://dbpedia.org/sparql> 
+	void:triples
+		1141462841^^<http://www.w3.org/2001/XMLSchema#integer> ; 
+
+	void:properties
+		54685^^<http://www.w3.org/2001/XMLSchema#integer> ; 
+
+	void:classes
+		483639^^<http://www.w3.org/2001/XMLSchema#integer> ; 
+
+	void:distinctObjects
+		270960599^^<http://www.w3.org/2001/XMLSchema#integer> ; 
+
+	void:entities
+		41635675^^<http://www.w3.org/2001/XMLSchema#integer> ; 
+
+	void:distinctSubjects
+		55220524^^<null> ;
+	void:exampleResource
+		http://dbpedia.org/resource/OpenLink_Software> ; 
+
+	void:exampleResource
+		http://dbpedia.org/resource/1932_Winter_Olympics_medal_table> ; 
+
+	void:exampleResource
+		http://dbpedia.org/resource/1932_Wisconsin_Badgers_football_team> .

@@ -1,0 +1,45 @@
+@prefix sd: <http://www.w3.org/ns/sparql-service-description#> .
+@prefix void: <http://rdfs.org/ns/void#> .
+
+// SPARQL Service Description
+
+<http://www.scholarlydata.org/sparql> a sd:Service ;
+    sd:endpoint <http://www.scholarlydata.org/sparql> ;
+    sd:defaultDataset [
+        a sd:Dataset ;
+        sd:defaultGraph [
+            a sd:Graph ;
+            void:triples1282460
+        ]
+    ] .
+
+//VoID Description 
+
+@prefix void: <http://vocab.deri.ie/void#> .
+
+<http://www.scholarlydata.org/sparql> 
+	void:triples
+		1282460^^<http://www.w3.org/2001/XMLSchema#integer> ; 
+
+	void:properties
+		209^^<http://www.w3.org/2001/XMLSchema#integer> ; 
+
+	void:classes
+		94^^<http://www.w3.org/2001/XMLSchema#integer> ; 
+
+	void:distinctObjects
+		173854^^<http://www.w3.org/2001/XMLSchema#integer> ; 
+
+	void:entities
+		82040^^<http://www.w3.org/2001/XMLSchema#integer> ; 
+
+	void:distinctSubjects
+		89539^^<http://www.w3.org/2001/XMLSchema#integer> ;
+	void:exampleResource
+		https://w3id.org/scholarlydata/authorlist/iswc-2019-resource-102> ; 
+
+	void:exampleResource
+		https://w3id.org/scholarlydata/authorlist/iswc-2019-resource-123> ; 
+
+	void:exampleResource
+		https://w3id.org/scholarlydata/authorlist/iswc-2019-resource-143> .

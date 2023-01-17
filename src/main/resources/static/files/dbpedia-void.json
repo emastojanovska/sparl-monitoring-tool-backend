@@ -1,0 +1,49 @@
+{
+  "exampleResources" : {
+    "type" : "literal",
+    "datatype" : "http://www.w3.org/2001/XMLSchema#string",
+    "value" : [ "http://dbpedia.org/resource/OpenLink_Software", "http://dbpedia.org/resource/1932_Winter_Olympics_medal_table", "http://dbpedia.org/resource/1932_Wisconsin_Badgers_football_team" ]
+  },
+  "triples" : {
+    "type" : "literal",
+    "datatype" : "http://www.w3.org/2001/XMLSchema#integer",
+    "value" : "1141462841",
+    "link" : "http://vocab.deri.ie/void#triples",
+    "name" : "void:triples"
+  },
+  "properties" : {
+    "type" : "literal",
+    "datatype" : "http://www.w3.org/2001/XMLSchema#integer",
+    "value" : "54685",
+    "link" : "http://vocab.deri.ie/void#properties",
+    "name" : "void:properties"
+  },
+  "classes" : {
+    "type" : "literal",
+    "datatype" : "http://www.w3.org/2001/XMLSchema#integer",
+    "value" : "483639",
+    "link" : "http://vocab.deri.ie/void#classes",
+    "name" : "void:classes"
+  },
+  "objects" : {
+    "type" : "literal",
+    "datatype" : "http://www.w3.org/2001/XMLSchema#integer",
+    "value" : "270960599 ",
+    "link" : "http://vocab.deri.ie/void#distinctObjects",
+    "name" : "void:distinctObjects"
+  },
+  "entities" : {
+    "type" : "literal",
+    "datatype" : "http://www.w3.org/2001/XMLSchema#integer",
+    "value" : "41635675 ",
+    "link" : "http://vocab.deri.ie/void#entities",
+    "name" : "void:entities"
+  },
+  "subjects" : {
+    "type" : "literal",
+    "datatype" : "http://www.w3.org/2001/XMLSchema#integer",
+    "value" : "55220524 ",
+    "link" : "http://vocab.deri.ie/void#distinctSubjects",
+    "name" : "void:distinctSubjects"
+  }
+}

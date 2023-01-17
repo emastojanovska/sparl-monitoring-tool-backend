@@ -1,0 +1,49 @@
+{
+  "exampleResources" : {
+    "type" : "literal",
+    "datatype" : "http://www.w3.org/2001/XMLSchema#string",
+    "value" : [ "http://wifo5-04.informatik.uni-mannheim.de/drugbank/resource/drugbank/drugs", "http://wifo5-04.informatik.uni-mannheim.de/drugbank/resource/drugbank/genericName", "http://wifo5-04.informatik.uni-mannheim.de/drugbank/resource/drugbank/brandName" ]
+  },
+  "triples" : {
+    "type" : "literal",
+    "datatype" : "http://www.w3.org/2001/XMLSchema#integer",
+    "value" : "533007021",
+    "link" : "http://vocab.deri.ie/void#triples",
+    "name" : "void:triples"
+  },
+  "properties" : {
+    "type" : "literal",
+    "datatype" : "http://www.w3.org/2001/XMLSchema#integer",
+    "value" : "336",
+    "link" : "http://vocab.deri.ie/void#properties",
+    "name" : "void:properties"
+  },
+  "classes" : {
+    "type" : "literal",
+    "datatype" : "http://www.w3.org/2001/XMLSchema#integer",
+    "value" : "4981",
+    "link" : "http://vocab.deri.ie/void#classes",
+    "name" : "void:classes"
+  },
+  "objects" : {
+    "type" : "literal",
+    "datatype" : "http://www.w3.org/2001/XMLSchema#integer",
+    "value" : "12770395",
+    "link" : "http://vocab.deri.ie/void#distinctObjects",
+    "name" : "void:distinctObjects"
+  },
+  "entities" : {
+    "type" : "literal",
+    "datatype" : "http://www.w3.org/2001/XMLSchema#integer",
+    "value" : "494",
+    "link" : "http://vocab.deri.ie/void#entities",
+    "name" : "void:entities"
+  },
+  "subjects" : {
+    "type" : "literal",
+    "datatype" : "http://www.w3.org/2001/XMLSchema#integer",
+    "value" : "11868297",
+    "link" : "http://vocab.deri.ie/void#distinctSubjects",
+    "name" : "void:distinctSubjects"
+  }
+}

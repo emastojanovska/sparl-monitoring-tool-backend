@@ -31,6 +31,9 @@ public class Endpoint {
     @Column(name = "available")
     private boolean available;
 
+    @Column(name = "void_file")
+    private boolean voidFileGenerated;
+
     @Column(name = "new_version")
     private boolean newVersion;
 
@@ -39,6 +42,21 @@ public class Endpoint {
 
     @Column(name = "server_name")
     private String serverName;
+
+    @Column(name = "relation_speciality")
+    private double relationSpeciality;
+
+    @Column(name = "coherence")
+    private double coherence;
+
+    @JsonIgnore
+    @OneToOne(mappedBy = "endpoint")
+    private VoidDatasetStatistics voidDatasetStatistics;
+
+    @JsonIgnore
+    @OneToMany(mappedBy = "endpoint")
+    private List<File> voidFiles = new ArrayList<>();
+
     @JsonIgnore
     @OneToMany(mappedBy = "endpoint")
     private List<Query> queries = new ArrayList<>();

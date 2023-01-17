@@ -1,0 +1,45 @@
+@prefix sd: <http://www.w3.org/ns/sparql-service-description#> .
+@prefix void: <http://rdfs.org/ns/void#> .
+
+// SPARQL Service Description
+
+<http://linkeddata.finki.ukim.mk/sparql> a sd:Service ;
+    sd:endpoint <http://linkeddata.finki.ukim.mk/sparql> ;
+    sd:defaultDataset [
+        a sd:Dataset ;
+        sd:defaultGraph [
+            a sd:Graph ;
+            void:triples533007021
+        ]
+    ] .
+
+//VoID Description 
+
+@prefix void: <http://vocab.deri.ie/void#> .
+
+<http://linkeddata.finki.ukim.mk/sparql> 
+	void:triples
+		533007021^^<http://www.w3.org/2001/XMLSchema#integer> ; 
+
+	void:properties
+		336^^<http://www.w3.org/2001/XMLSchema#integer> ; 
+
+	void:classes
+		4981^^<http://www.w3.org/2001/XMLSchema#integer> ; 
+
+	void:distinctObjects
+		12770395^^<http://www.w3.org/2001/XMLSchema#integer> ; 
+
+	void:entities
+		494^^<http://www.w3.org/2001/XMLSchema#integer> ; 
+
+	void:distinctSubjects
+		11868297^^<http://www.w3.org/2001/XMLSchema#integer> ;
+	void:exampleResource
+		http://wifo5-04.informatik.uni-mannheim.de/drugbank/resource/drugbank/drugs> ; 
+
+	void:exampleResource
+		http://wifo5-04.informatik.uni-mannheim.de/drugbank/resource/drugbank/genericName> ; 
+
+	void:exampleResource
+		http://wifo5-04.informatik.uni-mannheim.de/drugbank/resource/drugbank/brandName> .

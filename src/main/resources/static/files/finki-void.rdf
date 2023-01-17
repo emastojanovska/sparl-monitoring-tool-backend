@@ -1,0 +1,38 @@
+<!--VoID Description--> 
+
+<?xml version="1.0"?>
+
+<rdf:RDF
+xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+xmlns:void="http://vocab.deri.ie/void#">
+
+<rdf:Description rdf:about="http://linkeddata.finki.ukim.mk/sparql">
+	<void:triples>533007021</void:triples>
+	<void:properties>336</void:properties>
+	<void:classes>4981</void:classes>
+	<void:distinctObjects>12770395</void:distinctObjects>
+	<void:entities>494</void:entities>
+	<void:distinctSubjects>11868297</void:distinctSubjects>
+<void:exampleResource>http://wifo5-04.informatik.uni-mannheim.de/drugbank/resource/drugbank/drugs</void:exampleResource>
+ <void:exampleResource>http://wifo5-04.informatik.uni-mannheim.de/drugbank/resource/drugbank/genericName</void:exampleResource>
+ <void:exampleResource>http://wifo5-04.informatik.uni-mannheim.de/drugbank/resource/drugbank/brandName</void:exampleResource>
+</rdf:Description>
+
+<!--SPARQL Service Description-->
+
+<sd:Service>
+    <sd:endpoint rdf:resource="http://linkeddata.finki.ukim.mk/sparql"/>
+    <sd:supportedLanguage rdf:resource="http://www.w3.org/ns/sparql-service-description#SPARQL11Query"/>
+    <sd:resultFormat rdf:resource="http://www.w3.org/ns/formats/RDF_XML"/>
+    <sd:resultFormat rdf:resource="http://www.w3.org/ns/formats/Turtle"/>
+	<sd:defaultDataset>
+      	    <sd:Dataset>
+       	        <sd:defaultGraph>
+          	    <sd:Graph>
+            	        <void:triples rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">533007021</void:triples>
+                    </sd:Graph>
+                </sd:defaultGraph>
+	    </sd:Dataset>
+	</sd:defaultDataset>
+</sd:Service>
+</rdf:RDF>
