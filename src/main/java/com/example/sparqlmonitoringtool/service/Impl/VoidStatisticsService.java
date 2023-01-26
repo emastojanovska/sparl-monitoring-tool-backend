@@ -100,7 +100,6 @@ public class VoidStatisticsService implements IVoidStatisticsService {
                 " <void:exampleResource>" + voidDatasetStatistics.getResource3() + "</void:exampleResource>\n";
         rdfXmlResult += "</rdf:Description>\n\n" + serviceDescription + "</rdf:RDF>";
 
-        System.out.println("rdfXmlResult => " + rdfXmlResult);
         return rdfXmlResult;
     }
 
@@ -198,7 +197,6 @@ public class VoidStatisticsService implements IVoidStatisticsService {
                     + "            ?s a <"+type.replaceAll("\\s", "")+"> . "
                     + "            ?s <"+predicate+"> ?o"
                     + "           }" ;
-        System.out.println("Query string ==> " +  queryString);
         Query query = QueryFactory.create(queryString);
         QueryExecution qExe = QueryExecutionFactory.sparqlService(endpoint, query);
         ResultSet res= qExe.execSelect();
@@ -213,8 +211,6 @@ public class VoidStatisticsService implements IVoidStatisticsService {
     public static long getTypeInstancesSize(String type, String namedGraph,String endpoint)  {
         long typeInstancesSize =0;
         String queryString ;
-        System.out.println("Type ==> " + type);
-        System.out.println("Named graph ==> " + namedGraph);
         if(namedGraph ==null)
             queryString = "SELECT (Count(DISTINCT ?s)  as ?cnt ) \n"
                     + "			WHERE { \n"
@@ -300,17 +296,13 @@ public class VoidStatisticsService implements IVoidStatisticsService {
         double relationshipSpecialty = 0 ;
         int i = 1;
         for (String predicate:predicates){
-            error = false ;
             double [] occurences = getOccurences(predicate,endpoint,namedGraph,subjects);
-            //	System.out.println(error);
-            if(error==false){
-                double kurtosis = kurt.evaluate(occurences);
-                	System.out.println("Kurtosis: " +kurtosis);
-                long tpSize = getPredicateSize(predicate,endpoint,namedGraph);
-                	System.out.println("T.p Size: " +tpSize);
-                relationshipSpecialty = relationshipSpecialty + (tpSize*kurtosis/datasetSize);
-                System.out.println(i+": "+predicate+"\t Relationship Specialty so far: "+(relationshipSpecialty));
-            }
+            double kurtosis = kurt.evaluate(occurences);
+                System.out.println("Kurtosis: " +kurtosis);
+            long tpSize = getPredicateSize(predicate,endpoint,namedGraph);
+                System.out.println("T.p Size: " +tpSize);
+            relationshipSpecialty = relationshipSpecialty + (tpSize*kurtosis/datasetSize);
+            System.out.println(i+": "+predicate+"\t Relationship Specialty so far: "+(relationshipSpecialty));
             i++;
         }
         return relationshipSpecialty;

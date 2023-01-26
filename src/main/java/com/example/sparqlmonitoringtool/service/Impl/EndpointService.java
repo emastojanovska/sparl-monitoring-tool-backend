@@ -197,7 +197,6 @@ public class EndpointService implements IEndpointService {
 
     public static Long pingURL(String url, String query, int timeout) {
         url = url.replaceFirst("^https", "http");
-        System.out.println("URL ---> " + url);
         try {
             StopWatch pageLoad = new StopWatch();
             pageLoad.start();
@@ -219,7 +218,6 @@ public class EndpointService implements IEndpointService {
     }
 
     private static void executeQuery(String endpointURL, String query) {
-        System.out.println("Query ---> " + query);
         org.apache.jena.query.Query queryToSelect = QueryFactory.create(query);
         QueryExecutionFactory.sparqlService(endpointURL, queryToSelect);
     }

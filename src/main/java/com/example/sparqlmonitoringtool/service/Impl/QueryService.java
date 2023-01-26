@@ -120,6 +120,10 @@ public class QueryService implements IQueryService {
         file.setFileName(fileName);
         fileRepository.save(file);
         file.setEndpoint(endpoint);
+        File fileToDelete = fileRepository.findByFileName(fileName);
+        if(fileToDelete != null){
+            fileRepository.delete(fileToDelete);
+        }
         fileRepository.save(file);
         FileOutputStream outputStream = new FileOutputStream(filePath);
         byte[] strToBytes = data.getBytes();
@@ -133,7 +137,6 @@ public class QueryService implements IQueryService {
         String resultAsString = getQueryData(endpointURL, inMemoryRepository.findVoidQueryByKey("TRIPLES"));
         ResultValue resultValue = getJsonValue(resultAsString);
         Integer numberTriples = resultValue.getValue();
-        System.out.println("NUM TRIPLES => " + numberTriples);
         VoidDatasetStatistics voidDatasetStatistics = voidStatisticsRepository.findByEndpointURL(endpointURL);
         voidDatasetStatistics.setNumTriples(numberTriples);
         voidStatisticsRepository.save(voidDatasetStatistics);
@@ -226,12 +229,10 @@ public class QueryService implements IQueryService {
         ResultValue resultValue = new ResultValue();
         String[] getArr = resultAsString.split("\\[");
         String[] getArrValue = getArr[2].split("\\{");
-        System.out.println("VAL AS JSON =>> {" + getArrValue[2].split("\\}")[0] + "}");
         String valueObject = "{" + getArrValue[2].split("\\}")[0] + "}";
         resultValue.setJsonValue(valueObject);
         JSONArray array = new JSONArray("[" + valueObject + "]");
         JSONObject object = array.getJSONObject(0);
-        System.out.println("ARRAY ==> " + object.getString("value"));
         resultValue.setValue(Integer.valueOf(object.getString("value")));
         resultValue.setType(object.getString("type"));
         resultValue.setDatatype(object.getString("datatype"));

@@ -17,15 +17,16 @@ public class ScheduledTasks {
     }
 
     //Everyday at 6am
-    //@Scheduled(cron="0 0 6 * * *")
-    @Scheduled(cron="0 * * * * *")
+    @Scheduled(cron="0 0 6 * * *")
+    //@Scheduled(cron="0 * * * * *")
     public void checkAvailability(){
         System.out.println("Calling updateAvailableEndpoints()");
         this.iEndpointService.updateAvailableEndpoints();
         System.out.println("Ending updateAvailableEndpoints()");
     }
 
-    @Scheduled(cron="0 * * * * *")
+    //@Scheduled(cron="0 * * * * *")
+    @Scheduled(cron="0 0 6 * * *")
     public void checkResponseTime(){
         System.out.println("Calling updateResponseTime()");
         this.iEndpointService.updateResponseTime();
@@ -33,12 +34,12 @@ public class ScheduledTasks {
     }
 
     //Everyday at 6am
-   /* @Scheduled(cron="0 0 6 * * *")
+    @Scheduled(cron="0 0 6 * * *")
     public void getVoidStatistics() throws JSONException, IOException {
         System.out.println("Calling getVoidStatistics()");
         this.iEndpointService.updateVoidStatistics();
         System.out.println("Ending getVoidStatistics()");
-    }*/
+    }
 
 
 }
