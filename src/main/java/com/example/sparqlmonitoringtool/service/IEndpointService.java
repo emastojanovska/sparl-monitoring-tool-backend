@@ -12,6 +12,7 @@ import java.util.List;
 public interface IEndpointService {
     Endpoint createSparqlEndpoint(EndpointDTO endpointDTO) throws IOException, URISyntaxException, JSONException;
     Endpoint removeSparqlEndpoint(Long id);
+    Endpoint editSparqlEndpoint(Long id, String endpointName);
     Endpoint getEndpointById(Long id);
     Endpoint getSparqlEndpointDetails(Long id);
     List<Endpoint> getAllEndpoints();

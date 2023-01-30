@@ -1,7 +1,6 @@
 package com.example.sparqlmonitoringtool.jobs;
 
 import com.example.sparqlmonitoringtool.service.IEndpointService;
-import com.example.sparqlmonitoringtool.service.IQueryService;
 import org.json.JSONException;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;

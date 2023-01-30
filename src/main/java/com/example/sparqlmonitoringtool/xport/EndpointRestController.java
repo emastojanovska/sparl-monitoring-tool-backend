@@ -7,7 +7,6 @@ import com.example.sparqlmonitoringtool.model.dto.ResultValueDTO;
 import com.example.sparqlmonitoringtool.service.IEndpointService;
 import com.example.sparqlmonitoringtool.service.IFileService;
 import com.example.sparqlmonitoringtool.service.IVoidStatisticsService;
-import com.fasterxml.jackson.core.JsonProcessingException;
 import org.json.JSONException;
 import org.springframework.core.io.FileSystemResource;
 import org.springframework.http.*;
@@ -45,6 +44,11 @@ public class EndpointRestController {
     @PostMapping("/remove")
     public Endpoint removeEndpoint(@RequestBody Endpoint endpoint){
         return iEndpointService.removeSparqlEndpoint(endpoint.getId());
+    }
+
+    @PostMapping("/edit/{id}")
+    public Endpoint editEndpoint(@PathVariable Long id, @RequestParam String endpointName){
+        return iEndpointService.editSparqlEndpoint(id, endpointName);
     }
 
     @GetMapping("/void/{id}")

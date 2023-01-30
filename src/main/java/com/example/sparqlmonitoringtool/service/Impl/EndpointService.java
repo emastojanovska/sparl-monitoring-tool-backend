@@ -123,6 +123,14 @@ public class EndpointService implements IEndpointService {
     }
 
     @Override
+    public Endpoint editSparqlEndpoint(Long id, String endpointName) {
+        Endpoint endpointExist =  endpointRepository.findById(id).orElseThrow(EndpointNotFoundException::new);
+        endpointExist.setName(endpointName);
+        endpointRepository.save(endpointExist);
+        return endpointExist;
+    }
+
+    @Override
     public Endpoint getEndpointById(Long id) {
         return endpointRepository.findById(id).orElseThrow(EndpointNotFoundException::new);
     }

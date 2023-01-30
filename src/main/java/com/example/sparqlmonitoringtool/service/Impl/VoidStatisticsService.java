@@ -73,9 +73,6 @@ public class VoidStatisticsService implements IVoidStatisticsService {
                 "\n" +
                 "<sd:Service>\n" +
                 "    <sd:endpoint rdf:resource=\"" + endpoint.getURL() + "\"/>\n" +
-                "    <sd:supportedLanguage rdf:resource=\"http://www.w3.org/ns/sparql-service-description#SPARQL11Query\"/>\n" +
-                "    <sd:resultFormat rdf:resource=\"http://www.w3.org/ns/formats/RDF_XML\"/>\n" +
-                "    <sd:resultFormat rdf:resource=\"http://www.w3.org/ns/formats/Turtle\"/>\n" +
                 "\t<sd:defaultDataset>\n" +
                 "      \t    <sd:Dataset>\n" +
                 "       \t        <sd:defaultGraph>\n" +
