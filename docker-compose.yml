@@ -1,0 +1,51 @@
+version: '3'
+services:
+  db:
+    image: postgres:14.1-alpine
+    restart: always
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+    ports:
+      - '5432:5432'
+    volumes:
+      - ./data:/var/lib/postgresql/data
+  web:
+    image: sparql_monitoring_tool
+    environment:
+      - DB_URL=jdbc:;database=sparql_monitoring_tool_db;encrypt=true;Trusted_Connection=True;
+      - DB_USER=postgres
+      - DB_PASS=postgres
+      - SPRING_PROFILES_ACTIVE=dev
+      - LIBRE_PATH=soffice
+      - FRONTEND_HOST
+      - FRONTEND_HOST_PREFIX
+    deploy:
+      restart_policy:
+        condition: any
+        delay: 60s
+      labels:
+        - traefik.frontend.rule=Host:$FRONTEND_HOST;PathPrefix:$FRONTEND_HOST_PREFIX
+        - traefik.docker.network=traefik
+        - traefik.port=8080
+        - traefik.protocol=http
+        - traefik.enable=true
+        - traefik.tags=traefik
+        - traefik.redirectorservice.frontend.entryPoints=http
+        - traefik.redirectorservice.frontend.redirect.entryPoint=https
+        - traefik.webservice.frontend.entryPoints=https
+    volumes:
+      - sparql_monitoring_tool_file_uploads:/files
+    networks:
+      - traefik
+      - private
+
+volumes:
+  sparql_monitoring_tool_file_uploads:
+    external: true
+
+networks:
+  traefik:
+    external: true
+  private:
+    external: true

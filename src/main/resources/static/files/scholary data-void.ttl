@@ -3,8 +3,8 @@
 
 // SPARQL Service Description
 
-<http://www.scholarlydata.org/sparql> a sd:Service ;
-    sd:endpoint <http://www.scholarlydata.org/sparql> ;
+<http://www.scholarlydata.org/sparql/> a sd:Service ;
+    sd:endpoint <http://www.scholarlydata.org/sparql/> ;
     sd:defaultDataset [
         a sd:Dataset ;
         sd:defaultGraph [
@@ -17,7 +17,7 @@
 
 @prefix void: <http://vocab.deri.ie/void#> .
 
-<http://www.scholarlydata.org/sparql> 
+<http://www.scholarlydata.org/sparql/> 
 	void:triples
 		1282460^^<http://www.w3.org/2001/XMLSchema#integer> ; 
 

@@ -18,7 +18,6 @@ import java.net.URISyntaxException;
 import java.util.List;
 
 @RestController
-@CrossOrigin(origins = "http://localhost:3000", allowedHeaders = "*")
 @RequestMapping("/endpoints")
 public class EndpointRestController {
     private final IEndpointService iEndpointService;

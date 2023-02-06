@@ -2,16 +2,11 @@ package com.example.sparqlmonitoringtool.service.Impl;
 
 import com.example.sparqlmonitoringtool.exceptions.EndpointAlreadyExistsException;
 import com.example.sparqlmonitoringtool.exceptions.EndpointNotFoundException;
-import com.example.sparqlmonitoringtool.model.db.Endpoint;
-import com.example.sparqlmonitoringtool.model.db.Query;
-import com.example.sparqlmonitoringtool.model.db.VoidDatasetStatistics;
+import com.example.sparqlmonitoringtool.model.db.*;
 import com.example.sparqlmonitoringtool.model.dto.EndpointDTO;
 import com.example.sparqlmonitoringtool.model.dto.EndpointResponseDTO;
 import com.example.sparqlmonitoringtool.model.events.EndpointCreatedEvent;
-import com.example.sparqlmonitoringtool.repository.EndpointRepository;
-import com.example.sparqlmonitoringtool.repository.QueryRepository;
-import com.example.sparqlmonitoringtool.repository.ResultValueRepository;
-import com.example.sparqlmonitoringtool.repository.VoidStatisticsRepository;
+import com.example.sparqlmonitoringtool.repository.*;
 import com.example.sparqlmonitoringtool.service.IEndpointService;
 import com.example.sparqlmonitoringtool.service.IInMemoryService;
 import org.apache.commons.lang3.time.StopWatch;
@@ -41,8 +36,9 @@ public class EndpointService implements IEndpointService {
     private final QueryService queryService;
     private final ResultValueRepository resultValueRepository;
     private final ApplicationEventPublisher applicationEventPublisher;
+    private final FileRepository fileRepository;
 
-    public EndpointService(EndpointRepository endpointRepository, IInMemoryService inMemoryService, QueryRepository queryRepository, VoidStatisticsRepository voidStatisticsRepository, QueryService queryService, ResultValueRepository resultValueRepository, ApplicationEventPublisher applicationEventPublisher) {
+    public EndpointService(EndpointRepository endpointRepository, IInMemoryService inMemoryService, QueryRepository queryRepository, VoidStatisticsRepository voidStatisticsRepository, QueryService queryService, ResultValueRepository resultValueRepository, ApplicationEventPublisher applicationEventPublisher, FileRepository fileRepository) {
         this.endpointRepository = endpointRepository;
         this.inMemoryService = inMemoryService;
         this.queryRepository = queryRepository;
@@ -50,6 +46,7 @@ public class EndpointService implements IEndpointService {
         this.queryService = queryService;
         this.resultValueRepository = resultValueRepository;
         this.applicationEventPublisher = applicationEventPublisher;
+        this.fileRepository = fileRepository;
     }
 
 
@@ -115,10 +112,15 @@ public class EndpointService implements IEndpointService {
     @Override
     public Endpoint removeSparqlEndpoint(Long id) {
         Endpoint endpoint = endpointRepository.findById(id).orElseThrow(EndpointNotFoundException::new);
+        List<File> files = fileRepository.findAllByEndpointId(id);
+        fileRepository.deleteAll(files);
         List<Query> queries = queryRepository.findAllByEndpoint(endpoint);
         queryRepository.deleteAll(queries);
-        if(endpoint != null)
-            endpointRepository.deleteById(id);
+        VoidDatasetStatistics voidDatasetStatistics = voidStatisticsRepository.findByEndpointId(id);
+        List<ResultValue> resultValues = resultValueRepository.findAllByVoidDatasetStatisticsId(voidDatasetStatistics.getId());
+        resultValueRepository.deleteAll(resultValues);
+        voidStatisticsRepository.delete(voidDatasetStatistics);
+        endpointRepository.deleteById(id);
         return endpoint;
     }
 

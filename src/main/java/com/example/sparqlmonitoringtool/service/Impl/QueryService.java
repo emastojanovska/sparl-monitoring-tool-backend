@@ -30,7 +30,7 @@ public class QueryService implements IQueryService {
     private final ResultValueRepository resultValueRepository;
     private final IVoidStatisticsService voidStatisticsService;
     private final FileRepository fileRepository;
-    public static String FILES_PATH = "C:\\Users\\Dell\\wbs\\sparqlMonitoringTool\\src\\main\\resources\\static\\files\\";
+    public static String FILES_PATH = "/files";
 
     public QueryService(QueryRepository queryRepository, InMemoryRepository inMemoryRepository, EndpointRepository endpointRepository, VoidStatisticsRepository voidStatisticsRepository, ResultValueRepository resultValueRepository, IVoidStatisticsService voidStatisticsService, FileRepository fileRepository) {
         this.queryRepository = queryRepository;
