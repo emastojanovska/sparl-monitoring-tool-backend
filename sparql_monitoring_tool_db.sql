@@ -1,4 +1,3 @@
-
 --
 -- PostgreSQL database dump
 --
@@ -17,30 +16,29 @@ SET xmloption = content;
 SET client_min_messages = warning;
 SET row_security = off;
 
-ALTER TABLE IF EXISTS ONLY public.file DROP CONSTRAINT IF EXISTS fk8sjdrh1p8lt551a84qeafe0pi;
-ALTER TABLE IF EXISTS ONLY public.query DROP CONSTRAINT IF EXISTS fk7jb1hqeffxk3r4satc96d9l71;
-ALTER TABLE IF EXISTS ONLY public.void_dataset_statistics DROP CONSTRAINT IF EXISTS fk4k92470xkxroq2oshgf5wt6me;
-ALTER TABLE IF EXISTS ONLY public.result_value DROP CONSTRAINT IF EXISTS fk136qlcgtrmuorbftytmep4hxl;
-ALTER TABLE IF EXISTS ONLY public.void_dataset_statistics DROP CONSTRAINT IF EXISTS void_dataset_statistics_pkey;
-ALTER TABLE IF EXISTS ONLY public.result_value DROP CONSTRAINT IF EXISTS result_value_pkey;
-ALTER TABLE IF EXISTS ONLY public.query DROP CONSTRAINT IF EXISTS query_pkey;
-ALTER TABLE IF EXISTS ONLY public.file DROP CONSTRAINT IF EXISTS file_pkey;
-ALTER TABLE IF EXISTS ONLY public.endpoint DROP CONSTRAINT IF EXISTS endpoint_pkey;
-ALTER TABLE IF EXISTS public.void_dataset_statistics ALTER COLUMN id DROP DEFAULT;
-ALTER TABLE IF EXISTS public.result_value ALTER COLUMN id DROP DEFAULT;
-ALTER TABLE IF EXISTS public.query ALTER COLUMN id DROP DEFAULT;
-ALTER TABLE IF EXISTS public.file ALTER COLUMN id DROP DEFAULT;
-ALTER TABLE IF EXISTS public.endpoint ALTER COLUMN id DROP DEFAULT;
-DROP SEQUENCE IF EXISTS public.void_dataset_statistics_id_seq;
-DROP TABLE IF EXISTS public.void_dataset_statistics;
-DROP SEQUENCE IF EXISTS public.result_value_id_seq;
-DROP TABLE IF EXISTS public.result_value;
-DROP SEQUENCE IF EXISTS public.query_id_seq;
-DROP TABLE IF EXISTS public.query;
-DROP SEQUENCE IF EXISTS public.file_id_seq;
-DROP TABLE IF EXISTS public.file;
-DROP SEQUENCE IF EXISTS public.endpoint_id_seq;
-DROP TABLE IF EXISTS public.endpoint;
+DROP DATABASE IF EXISTS sparql_monitoring_tool_db;
+--
+-- Name: sparql_monitoring_tool_db; Type: DATABASE; Schema: -; Owner: postgres
+--
+
+CREATE DATABASE sparql_monitoring_tool_db WITH TEMPLATE = template0 ENCODING = 'UTF8' LOCALE = 'English_United States.1252';
+
+
+ALTER DATABASE sparql_monitoring_tool_db OWNER TO postgres;
+
+\connect sparql_monitoring_tool_db
+
+SET statement_timeout = 0;
+SET lock_timeout = 0;
+SET idle_in_transaction_session_timeout = 0;
+SET client_encoding = 'UTF8';
+SET standard_conforming_strings = on;
+SELECT pg_catalog.set_config('search_path', '', false);
+SET check_function_bodies = false;
+SET xmloption = content;
+SET client_min_messages = warning;
+SET row_security = off;
+
 SET default_tablespace = '';
 
 SET default_table_access_method = heap;
